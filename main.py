@@ -22,11 +22,11 @@ def choose_weights_optimizer():
     
     match choice:
         case '1':
-            hill_climb_weights()
+            hill_climb_weights(data)
         case '2':
-            simulate_annealing_weights()
+            simulate_annealing_weights(data)
         case '3':
-            genetic_alg_weights()
+            genetic_alg_weights(data)
 
 
 def hill_climb_weights():
@@ -37,3 +37,9 @@ def simulate_annealing_weights():
 
 def genetic_alg_weights():
     neural_net = NeuralNetwork([3], algorithm = genetic_alg, clip_max = 1, pop_size = 100, curve = True)
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
