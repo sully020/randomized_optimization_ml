@@ -1,9 +1,10 @@
 from mlrose import random_hill_climb, simulated_annealing, genetic_alg, NeuralNetwork, GeomDecay
 from sklearn.preprocessing import MaxAbsScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score
+from sklearn.metrics import f1_score
 import pandas as pd
 import matplotlib.pyplot as plt
+import random
 
 
 def preprocess_data():
@@ -54,18 +55,6 @@ def optimize_weights(data):
     plt.plot(neural.fitness_curve)
     plt.ylabel('Relative Fitness Found')
     plt.show()
-
-def generate_bit_string()
-    
-
-def test_four_peaks()
-    pass
-
-
-def test_n_queens()
-    pass
-
-
 
 
 def main():
