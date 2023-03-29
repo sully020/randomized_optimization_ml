@@ -3,6 +3,7 @@ from sklearn.preprocessing import MaxAbsScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, accuracy_score
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def preprocess_data():
@@ -37,7 +38,7 @@ def choose_weights_optimizer():
             print("You selected: Genetic Algorithm")
             population = int(input("Please enter population size: "))
             neural = NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = population, 
-                mutation_prob = 0.7, max_iters = 500, random_state = 0, curve = True)
+                mutation_prob = 0.1, max_iters = 500, random_state = 0, curve = True)
     return neural
 
 
@@ -50,7 +51,21 @@ def optimize_weights(data):
     y_test_preds = neural.predict(data[1])
     test_accuracy = f1_score(data[3], y_test_preds)
     print("The F1-score test accuracy of the neural network was: " + "{:.2f}".format(test_accuracy) + "%")
-    #print(neural.fitness_curve)
+    plt.plot(neural.fitness_curve)
+    plt.ylabel('Relative Fitness Found')
+    plt.show()
+
+def generate_bit_string()
+    
+
+def test_four_peaks()
+    pass
+
+
+def test_n_queens()
+    pass
+
+
 
 
 def main():
