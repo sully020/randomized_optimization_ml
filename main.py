@@ -57,6 +57,16 @@ def optimize_weights(data):
     plt.show()
 
 
+def generate_bit_string():
+    random_bits = []
+
+def test_four_peaks():
+    pass
+
+
+def test_n_queens():
+    pass
+
 def main():
     data = preprocess_data()
     optimize_weights(data)
