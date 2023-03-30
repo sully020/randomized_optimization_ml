@@ -23,14 +23,11 @@ def preprocess_data():
 def choose_weights_optimizer():
     choice = input("Please enter the number of the algorithm you would like to use:\n1.) R.R. Hill Climbing 2.) Simulated Annealing\
  3.) Genetic Algorithm \n")
-    
-    # Random state?
 
     match choice:
         case '1':
             print("You selected: Random Restart Hill Climbing")
-            restarts = int(input("How many random restarts would you like to use? "))
-            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = restarts,
+            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = 100
                 max_iters = 500, random_state = 0, curve = True)
         case '2':
             print("You selected: Simulated Annealing")
@@ -38,8 +35,7 @@ def choose_weights_optimizer():
                 max_iters = 500, random_state = 0, curve = True)
         case '3':
             print("You selected: Genetic Algorithm")
-            population = int(input("Please enter population size: "))
-            neural = ml.NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = population, 
+            neural = ml.NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = 100, 
                 mutation_prob = 0.1, max_iters = 500, random_state = 0, curve = True)
     return neural
 
