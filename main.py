@@ -57,7 +57,14 @@ def optimize_weights(data):
 
 
 def test_four_peaks():
-    pass
+    problem = ml.FourPeaks(t_pct = 0.2) # Tail/head sequence of 10+
+    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500, restarts = 200)
+    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500)
+    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500, pop_size = 500)
+    print("Max Four Peaks fitness found using Random Hill Climb was: " + str(best_hc_state[1]))
+    print("Max Four Peaks fitness found using Simulated Annealing was: " + str(best_sa_state[1]))
+    print("Max Four Peaks fitness found using the Genetic Algorithm was: " + str(best_ga_state[1]))
+
 
 def test_n_queens():
     pass
