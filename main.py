@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
 import pandas as pd
 import matplotlib.pyplot as plt
-import timeit
+import timeit, time
 
 
 def preprocess_data():
@@ -76,12 +76,33 @@ def test_n_queens():
     print("Min. collision pairs found using Simulated Annealing was: " + str(best_sa_state[1]))
     print("Min. collision pairs found using the Genetic Algorithm was: " + str(best_ga_state[1]))
 
+def time_four_peaks():
+    ml_imp = "import mlrose as ml"
+    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 250, max_attempts = 50, restarts = 200)"
+    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 75, max_attempts = 40, restarts = 100)"
+    ga_test = "ml.genetic_alg(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 75, max_attempts = 40, restarts = 100)"
+    print("Random Hill Climb's lower bound runtime: " + 
+          str("{:.3f}".format(min(timeit.repeat(stmt = hc_test, setup = ml_imp, number = 5, repeat = 5))))) \
+          + " seconds."
+    print("Simulated Annealing's lower bound runtime: " + 
+          str("{:.3f}".format(min(timeit.repeat(stmt = sa_test, setup = ml_imp, number = 5, repeat = 5))))) \
+          + " seconds."
+    print("Genetic Algorithm's lower bound runtime: " + 
+          str("{:.3f}".format(min(timeit.repeat(stmt = ga_test, setup = ml_imp, number = 5, repeat = 5))))) \
+          + " seconds."
+
+
+
+def time_n_queens():
+    pass
+
 
 def main():
     data = preprocess_data()
     optimize_weights(data)
     test_four_peaks()
     test_n_queens()
+    time_four_peaks()
 
 if __name__ == "__main__":
     main()
