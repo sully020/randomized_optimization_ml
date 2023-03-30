@@ -67,7 +67,14 @@ def test_four_peaks():
 
 
 def test_n_queens():
-    pass
+    problem = ml.Queens()
+    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50, restarts = 200)
+    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50)
+    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50, pop_size = 200)
+    print("Min. collision pairs found using Random Hill Climb was: " + str(best_hc_state))
+    print("Min. collision pairs found using Simulated Annealing was: " + str(best_sa_state[1]))
+    print("Min. collision pairs found using the Genetic Algorithm was: " + str(best_ga_state[1]))
+
 
 def main():
     data = preprocess_data()
