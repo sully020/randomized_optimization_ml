@@ -93,7 +93,20 @@ def time_four_peaks():
 
 
 def time_n_queens():
-    pass
+    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(9, ml.Queens()), max_iters = 250, max_attempts = 50, restarts = 200)"
+    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(9, ml.Queens()), max_iters = 75, max_attempts = 40)"
+    ga_test = "ml.genetic_alg(ml.DiscreteOpt(9, ml.Queens()), max_iters = 75, max_attempts = 40, pop_size = 200)"
+    print("N Queens: ")
+    print("Random Hill Climb's lower bound runtime: " 
+          + str("{:.3f}".format(min(timeit.repeat(stmt = hc_test, setup = ml_imp, number = 5, repeat = 5))))
+          + " seconds.")
+    print("Simulated Annealing's lower bound runtime: " 
+          + str("{:.3f}".format(min(timeit.repeat(stmt = sa_test, setup = ml_imp, number = 5, repeat = 5))))
+          + " seconds.")
+    print("Genetic Algorithm's lower bound runtime: " 
+          + str("{:.3f}".format(min(timeit.repeat(stmt = ga_test, setup = ml_imp, number = 5, repeat = 5))))
+          + " seconds.")
+    print("----------------------------------")
 
 
 def main():
