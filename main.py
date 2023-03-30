@@ -27,7 +27,7 @@ def choose_weights_optimizer():
     match choice:
         case '1':
             print("You selected: Random Restart Hill Climbing")
-            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = 100
+            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = 100,
                 max_iters = 500, random_state = 0, curve = True)
         case '2':
             print("You selected: Simulated Annealing")
