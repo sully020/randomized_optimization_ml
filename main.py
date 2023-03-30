@@ -1,4 +1,4 @@
-from mlrose import random_hill_climb, simulated_annealing, genetic_alg, NeuralNetwork, GeomDecay
+import mlrose as ml
 from sklearn.preprocessing import MaxAbsScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
@@ -29,16 +29,16 @@ def choose_weights_optimizer():
         case '1':
             print("You selected: Random Restart Hill Climbing")
             restarts = int(input("How many random restarts would you like to use? "))
-            neural = NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = restarts,
+            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = restarts,
                 max_iters = 500, random_state = 0, curve = True)
         case '2':
             print("You selected: Simulated Annealing")
-            neural = NeuralNetwork([67], algorithm = 'simulated_annealing', clip_max = 1, schedule = GeomDecay(), 
+            neural = ml.NeuralNetwork([67], algorithm = 'simulated_annealing', clip_max = 1, schedule = ml.GeomDecay(), 
                 max_iters = 500, random_state = 0, curve = True)
         case '3':
             print("You selected: Genetic Algorithm")
             population = int(input("Please enter population size: "))
-            neural = NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = population, 
+            neural = ml.NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = population, 
                 mutation_prob = 0.1, max_iters = 500, random_state = 0, curve = True)
     return neural
 
