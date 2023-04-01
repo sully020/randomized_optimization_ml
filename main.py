@@ -27,16 +27,16 @@ def choose_weights_optimizer():
     match choice:
         case '1':
             print("You selected: Random Restart Hill Climbing")
-            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = 100,
-                max_iters = 500, random_state = 0, curve = True)
+            neural = ml.NeuralNetwork([67], algorithm = 'random_hill_climb', clip_max = 1, restarts = 200,
+                max_iters = 1000, random_state = 0, curve = True)
         case '2':
             print("You selected: Simulated Annealing")
             neural = ml.NeuralNetwork([67], algorithm = 'simulated_annealing', clip_max = 1, schedule = ml.GeomDecay(), 
-                max_iters = 500, random_state = 0, curve = True)
+                max_iters = 1000, random_state = 0, curve = True)
         case '3':
             print("You selected: Genetic Algorithm")
-            neural = ml.NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = 100, 
-                mutation_prob = 0.1, max_iters = 500, random_state = 0, curve = True)
+            neural = ml.NeuralNetwork([67], algorithm = 'genetic_alg', clip_max = 1, pop_size = 200, 
+                mutation_prob = 0.1, max_iters = 1000, random_state = 0, curve = True)
     return neural
 
 
@@ -54,11 +54,13 @@ def optimize_weights(data):
     plt.show()
 
 
+# Unique optimization problems, each of n = 50
+
 def test_four_peaks():
     problem = ml.FourPeaks(t_pct = 0.2) # Tail/head sequence of 10+
-    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500, restarts = 200)
-    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500)
-    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(50, problem), max_iters = 5000, max_attempts = 500, pop_size = 500)
+    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(50, problem), max_iters = 500, max_attempts = 500, restarts = 250)
+    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(50, problem), max_iters = 500, max_attempts = 500, schedule = ml.GeomDecay())
+    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(50, problem), max_iters = 500, max_attempts = 500, pop_size = 250)
     print("Max Four Peaks fitness found using Random Hill Climb was: " + str(best_hc_state[1]))
     print("Max Four Peaks fitness found using Simulated Annealing was: " + str(best_sa_state[1]))
     print("Max Four Peaks fitness found using the Genetic Algorithm was: " + str(best_ga_state[1]))
@@ -66,9 +68,9 @@ def test_four_peaks():
 
 def test_n_queens():
     problem = ml.Queens()
-    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50, restarts = 200)
-    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50)
-    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(100, problem), max_iters = 250, max_attempts = 50, pop_size = 200)
+    best_hc_state = ml.random_hill_climb(ml.DiscreteOpt(50, problem), max_iters = 750, max_attempts = 500, restarts = 250)
+    best_sa_state = ml.simulated_annealing(ml.DiscreteOpt(50, problem), max_iters = 750, max_attempts = 500, schedule = ml.GeomDecay())
+    best_ga_state = ml.genetic_alg(ml.DiscreteOpt(50, problem), max_iters = 750, max_attempts = 500, pop_size = 250)
     print("Min. collision pairs found using Random Hill Climb was: " + str(best_hc_state[1]))
     print("Min. collision pairs found using Simulated Annealing was: " + str(best_sa_state[1]))
     print("Min. collision pairs found using the Genetic Algorithm was: " + str(best_ga_state[1]))
@@ -76,9 +78,9 @@ def test_n_queens():
 
 def time_four_peaks():
     print("Four Peaks:")
-    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 250, max_attempts = 50, restarts = 200)"
-    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 75, max_attempts = 50)"
-    ga_test = "ml.genetic_alg(ml.DiscreteOpt(9, ml.FourPeaks()), max_iters = 75, max_attempts = 40, pop_size = 100)"
+    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(50, ml.FourPeaks()), max_iters = 500, max_attempts = 500, restarts = 250)"
+    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(50, ml.FourPeaks()), max_iters = 500, max_attempts = 500)"
+    ga_test = "ml.genetic_alg(ml.DiscreteOpt(50, ml.FourPeaks()), max_iters = 500, max_attempts = 500, pop_size = 250)"
     print("Random Hill Climb's lower bound runtime: " +
           str("{:.3f}".format(min(timeit.repeat(stmt = hc_test, setup = ml_imp, number = 5, repeat = 5)))) + " seconds.")
     print("Simulated Annealing's lower bound runtime: " +
@@ -89,27 +91,27 @@ def time_four_peaks():
 
 
 def time_n_queens():
-    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(9, ml.Queens()), max_iters = 250, max_attempts = 50, restarts = 200)"
-    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(9, ml.Queens()), max_iters = 75, max_attempts = 40)"
-    ga_test = "ml.genetic_alg(ml.DiscreteOpt(9, ml.Queens()), max_iters = 75, max_attempts = 40, pop_size = 200)"
+    hc_test = "ml.random_hill_climb(ml.DiscreteOpt(50, ml.Queens()), max_iters = 750, max_attempts = 500, restarts = 250)"
+    sa_test = "ml.simulated_annealing(ml.DiscreteOpt(50, ml.Queens()), max_iters = 750, max_attempts = 500)"
+    ga_test = "ml.genetic_alg(ml.DiscreteOpt(50, ml.Queens()), max_iters = 750, max_attempts = 500, pop_size = 250)"
     print("N Queens: ")
     print("Random Hill Climb's lower bound runtime: " 
-          + str("{:.3f}".format(min(timeit.repeat(stmt = hc_test, setup = ml_imp, number = 5, repeat = 5))))
+          + str("{:.3f}".format(min(timeit.repeat(stmt = hc_test, setup = ml_imp, number = 1, repeat = 2))))
           + " seconds.")
     print("Simulated Annealing's lower bound runtime: " 
-          + str("{:.3f}".format(min(timeit.repeat(stmt = sa_test, setup = ml_imp, number = 5, repeat = 5))))
+          + str("{:.3f}".format(min(timeit.repeat(stmt = sa_test, setup = ml_imp, number = 1, repeat = 2))))
           + " seconds.")
     print("Genetic Algorithm's lower bound runtime: " 
-          + str("{:.3f}".format(min(timeit.repeat(stmt = ga_test, setup = ml_imp, number = 5, repeat = 5))))
+          + str("{:.3f}".format(min(timeit.repeat(stmt = ga_test, setup = ml_imp, number = 1, repeat = 2))))
           + " seconds.")
     print("----------------------------------")
 
 
 def main():
     data = preprocess_data()
-    #optimize_weights(data)
-    #test_four_peaks()
-    #test_n_queens()
+    optimize_weights(data)
+    test_four_peaks()
+    test_n_queens()
     time_four_peaks()
     time_n_queens()
 
