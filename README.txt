@@ -1,3 +1,5 @@
+Download main.py, and ensure that all imports are installed. Ensure diabetes.csv is located in the same directory as main.py.
+
 Required Changes:
 Line 12 of 'neural.py', found in mlrose library:
 Change 'from sklearn.externals import six' to simply 'import six'. 
